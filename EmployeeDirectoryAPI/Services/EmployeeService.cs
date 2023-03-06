@@ -55,7 +55,7 @@ namespace EmployeeDirectoryAPI.Services
             return employee;
         }
 
-        public async Task<List<Employee>> GetFilter(string searchText, string searchBy)
+        public async Task<List<Employee>> DropdownFilter(string searchText, string searchBy)
         {
             List<Employee> employee;
 
@@ -86,7 +86,7 @@ namespace EmployeeDirectoryAPI.Services
         }
 
 
-        public async Task<List<Employee>> GetLetters(string letter)
+        public async Task<List<Employee>> AlphabetFilter(string letter)
         {
             List<Employee> employee;
             try

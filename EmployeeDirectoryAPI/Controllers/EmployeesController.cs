@@ -14,23 +14,6 @@ namespace EmployeeDirectoryAPI.Controllers
             _employeeService = employeeService;
         }
 
-        // GET: api/Employees
-        //[HttpGet("Employees")]
-        //public async Task<ActionResult<Employee>> Get()
-        //{
-        //    var result = await _employeeService.GetAsync();
-        //    if (result == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(result);
-        //}
-
-        //public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
-        //{
-        //    return await _context.Employees.ToListAsync();
-        //}
-
         // GET: api/Employees/5
         [HttpGet("Employees/{employeeId}")]
         public async Task<ActionResult<Employee>> GetById(int employeeId)
@@ -44,23 +27,42 @@ namespace EmployeeDirectoryAPI.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="letter"></param>
+        /// <param name="searchBy"></param>
+        /// <param name="department"></param>
+        /// <param name="office"></param>
+        /// <param name="jobTitle"></param>
+        /// <returns></returns>
+        /// 
         [HttpGet("Employees")]
-        public async Task<ActionResult<Employee>> GetFilter([FromQuery] string searchText, [FromQuery] string letter, string searchBy)
+        public async Task<ActionResult<Employee>> GetFilter([FromQuery] string searchText, [FromQuery] string letter, [FromQuery] string searchBy, [FromQuery] string? department, [FromQuery]  string? office, [FromQuery] string? jobTitle)
         {
             List<Employee>? result;
 
-            if (searchText == null && letter == null)
+            if (searchText == null && letter == null && department == null && office == null && jobTitle == null)
             {
                 result = await _employeeService.GetAsync();
             }
-            else if (searchText!= null)
+            else if (searchText != null && letter == null && department == null && office == null && jobTitle == null)
             {
 
-                result = await _employeeService.GetFilter(searchText, searchBy);
-            } 
+                result = await _employeeService.DropdownFilter(searchText, searchBy);
+            }
+            else if (searchText == null && letter != null && department == null && office == null && jobTitle == null)
+            {
+                result = await _employeeService.AlphabetFilter(letter);
+            }
             else
             {
-                result = await _employeeService.GetLetters(letter);
+
+#pragma warning disable CS8604 // Possible null reference argument.
+                result = await _employeeService.SidebarFilters(department, office, jobTitle);
+#pragma warning restore CS8604 // Possible null reference argument.
+
             }
 
             if (result == null)
@@ -70,18 +72,6 @@ namespace EmployeeDirectoryAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Employee")]
-
-        public async Task<ActionResult<Employee>> SidebarFilters(string department, string office, string jobTitle)
-        {          
-           var result = await _employeeService.SidebarFilters(department, office, jobTitle);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
 
 
         // PUT: api/Employees/5
@@ -123,9 +113,5 @@ namespace EmployeeDirectoryAPI.Controllers
             return NoContent();
         }
 
-        //private bool EmployeeExists(int id)
-        //{
-        //    return _context.Employees.Any(e => e.EmployeeId == id);
-        //}
     }
 }

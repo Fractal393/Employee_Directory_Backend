@@ -15,9 +15,9 @@ namespace EmployeeDirectoryAPI.Services
 
         Task<ResponseModel> DeleteAsync(int employeeid);
 
-        Task<List<Employee>> GetFilter(string value, string searchBy);
+        Task<List<Employee>> DropdownFilter(string value, string searchBy);
 
-        Task<List<Employee>> GetLetters(string letter);
+        Task<List<Employee>> AlphabetFilter(string letter);
         Task<List<Employee>> SidebarFilters(string department, string office, string jobTitle);
 
     }
