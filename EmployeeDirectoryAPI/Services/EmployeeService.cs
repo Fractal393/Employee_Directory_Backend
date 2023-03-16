@@ -1,8 +1,6 @@
 ﻿using EmployeeDirectoryAPI.Models;
 using EmployeeDirectoryAPI.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
 
 namespace EmployeeDirectoryAPI.Services
 {
@@ -12,7 +10,7 @@ namespace EmployeeDirectoryAPI.Services
 
         public EmployeeService(EmpContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
 
@@ -77,7 +75,7 @@ namespace EmployeeDirectoryAPI.Services
                         break;
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -93,7 +91,7 @@ namespace EmployeeDirectoryAPI.Services
             {
                 employee = await _context.Employees.Where(e => e.FirstName != null && e.FirstName.StartsWith(letter)).ToListAsync();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -110,7 +108,7 @@ namespace EmployeeDirectoryAPI.Services
                 {
                     employee = await _context.Employees.Where(e => e.Department != null && e.Department.StartsWith(department)).ToListAsync();
                 }
-                else if(office != null)
+                else if (office != null)
                 {
                     employee = await _context.Employees.Where(e => e.Office == office).ToListAsync();
                 }
@@ -147,7 +145,7 @@ namespace EmployeeDirectoryAPI.Services
                 //        Message = "Please Enter Employee Details"
                 //    };
                 //}
-                
+
                 var result = await _context.AddAsync<Employee>(employee);
                 if (await _context.SaveChangesAsync() < 0)
                 {
@@ -156,16 +154,16 @@ namespace EmployeeDirectoryAPI.Services
                         IsSuccess = false,
                         Message = "Employee Insertion Failed"
                     };
-                } 
+                }
                 responseModel.IsSuccess = true;
                 responseModel.Message = "Employee Inserted Succesfully";
                 //Returns value which needs to be checked and only then responsemodel should be updated
 
-             }
+            }
 
             catch (Exception ex)
             {
-                responseModel.IsSuccess= false;
+                responseModel.IsSuccess = false;
                 responseModel.Message = $"Error:{ex.Message}";
             }
 
@@ -185,8 +183,10 @@ namespace EmployeeDirectoryAPI.Services
             {
                 Employee? existingEmployee = await GetByIdAsync(employee.EmployeeId);
                 if (existingEmployee == null)
-                    return new ResponseModel() {
-                        IsSuccess = false, Message = $"Damn! Employee doesnt exists with Id:{employee.EmployeeId}" 
+                    return new ResponseModel()
+                    {
+                        IsSuccess = false,
+                        Message = $"Damn! Employee doesnt exists with Id:{employee.EmployeeId}"
                     };
 
 
@@ -206,8 +206,8 @@ namespace EmployeeDirectoryAPI.Services
                 //_context.Update<Employee>(existingEmployee);
                 if (await _context.SaveChangesAsync() > 0)
                 {
-                responseModel.Message = "Employee Updated Successfully";
-                responseModel.IsSuccess = true;
+                    responseModel.Message = "Employee Updated Successfully";
+                    responseModel.IsSuccess = true;
 
                 }
             }

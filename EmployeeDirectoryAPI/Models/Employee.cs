@@ -46,6 +46,7 @@ namespace EmployeeDirectoryAPI.Models
     {
         public EmpContext(DbContextOptions options) : base(options) { }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
 
