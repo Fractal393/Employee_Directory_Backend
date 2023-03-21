@@ -289,3 +289,4 @@ C:\Users\akshat.d\source\repos\EmployeeDirectoryAPI\EmployeeDirectoryAPI\bin\Deb
 C:\Users\akshat.d\source\repos\EmployeeDirectoryAPI\EmployeeDirectoryAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\akshat.d\source\repos\EmployeeDirectoryAPI\EmployeeDirectoryAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\akshat.d\source\repos\EmployeeDirectoryAPI\EmployeeDirectoryAPI\bin\Debug\net6.0\BCrypt.Net.dll
+C:\Users\akshat.d\source\repos\EmployeeDirectoryAPI\EmployeeDirectoryAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

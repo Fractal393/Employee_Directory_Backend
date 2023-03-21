@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "53832I9LF2wa5ZQK7tq1yt6lMEL+niCxIzz7eUpM8YVDfA4bOS4Q+e9QGVqVqFMDyr4EzvVfxNbNLvrzNsI6iQ==",
+  "dgSpecHash": "Wt0MCahfhh5F4EtnUttz15e7QRNqDjofUvIwZpvLiWaJNz0qh6/30ynCl31CvPrjZmwrroyyaiWuWWsP+oWeKA==",
   "success": true,
   "projectFilePath": "C:\\Users\\akshat.d\\source\\repos\\EmployeeDirectoryAPI\\EmployeeDirectoryAPI\\EmployeeDirectoryAPI.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\akshat.d\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\akshat.d\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\akshat.d\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\akshat.d\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.15\\microsoft.aspnetcore.authentication.jwtbearer.6.0.15.nupkg.sha512",
     "C:\\Users\\akshat.d\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\akshat.d\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\akshat.d\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",

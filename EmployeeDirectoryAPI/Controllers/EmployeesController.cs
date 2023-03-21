@@ -1,9 +1,11 @@
 ﻿using EmployeeDirectoryAPI.Models;
 using EmployeeDirectoryAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeDirectoryAPI.Controllers
 {
+    [Authorize]
     public class EmployeesController : ControllerBase
     {
         IEmployeeService _employeeService;
@@ -15,6 +17,7 @@ namespace EmployeeDirectoryAPI.Controllers
         }
 
         // GET: api/Employees/5
+        
         [HttpGet("Employees/{employeeId}")]
         public async Task<ActionResult<Employee>> GetById(int employeeId)
         {

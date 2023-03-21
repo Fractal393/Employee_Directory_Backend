@@ -1,7 +1,6 @@
 ﻿using EmployeeDirectoryAPI.Models;
 using EmployeeDirectoryAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -72,7 +71,7 @@ namespace EmployeeDirectoryAPI.Controllers
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("this is my custom Secret key for authentication");
+            var key = Encoding.ASCII.GetBytes("fTjWnZr4u7x!A%D*aran");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
