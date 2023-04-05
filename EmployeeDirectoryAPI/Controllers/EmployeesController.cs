@@ -17,7 +17,7 @@ namespace EmployeeDirectoryAPI.Controllers
         }
 
         // GET: api/Employees/5
-        
+
         [HttpGet("Employees/{employeeId}")]
         public async Task<ActionResult<Employee>> GetById(int employeeId)
         {
@@ -42,7 +42,7 @@ namespace EmployeeDirectoryAPI.Controllers
         /// <returns></returns>
         /// 
         [HttpGet("Employees")]
-        public async Task<ActionResult<Employee>> GetFilter([FromQuery] string searchText, [FromQuery] string letter, [FromQuery] string searchBy, [FromQuery] string? department, [FromQuery]  string? office, [FromQuery] string? jobTitle)
+        public async Task<ActionResult<Employee>> GetFilter([FromQuery] string searchText, [FromQuery] string letter, [FromQuery] string searchBy, [FromQuery] string? department, [FromQuery] string? office, [FromQuery] string? jobTitle)
         {
             List<Employee>? result;
 
@@ -81,7 +81,7 @@ namespace EmployeeDirectoryAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("Employees/{employeeId}")]
         public async Task<IActionResult> Update(int employeeId, [FromBody] Employee employee)
-        {
+        {  
             var result = await _employeeService.UpdateAsync(employee);
             if (!result.IsSuccess)
             {

@@ -1,5 +1,6 @@
 ﻿using EmployeeDirectoryAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeDirectoryAPI.Services
 {
@@ -14,7 +15,11 @@ namespace EmployeeDirectoryAPI.Services
 
         public class LoginDTO
         {
+            [EmailAddress]
             public string? email { get; set; }
+            
+            [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$",
+             ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")]
             public string? password { get; set; }
         }
 

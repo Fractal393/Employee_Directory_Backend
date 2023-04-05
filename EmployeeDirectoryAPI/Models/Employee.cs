@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-//using System.ComponentModel.DataAnnotations.Schema;
+﻿//using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeDirectoryAPI.Models
@@ -39,14 +38,6 @@ namespace EmployeeDirectoryAPI.Models
         public string? SkypeID { get; set; }
 
         public string? ImagePath { get; set; }
-
-    }
-
-    public class EmpContext: DbContext
-    {
-        public EmpContext(DbContextOptions options) : base(options) { }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<User> Users { get; set; }
     }
 }
 

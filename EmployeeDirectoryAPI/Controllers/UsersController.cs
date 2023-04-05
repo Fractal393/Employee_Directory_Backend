@@ -12,10 +12,12 @@ namespace EmployeeDirectoryAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IConfiguration _config;
 
-        public UsersController(IUserService userSevice)
+        public UsersController(IUserService userSevice, IConfiguration config)
         {
             _userService = userSevice;
+            _config = config;
         }
 
         [HttpGet("Users")]
@@ -71,7 +73,13 @@ namespace EmployeeDirectoryAPI.Controllers
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("fTjWnZr4u7x!A%D*aran");
+            string? keyString = _config["Jwt:key"];
+            if (keyString == null)
+            {
+                return BadRequest(new { message = "JWT Key not found" });
+            }
+
+            var key = Encoding.ASCII.GetBytes(keyString);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -79,7 +87,13 @@ namespace EmployeeDirectoryAPI.Controllers
                 new Claim(ClaimTypes.Name, user.Id.ToString())
             }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Issuer = _config["Jwt:Issuer"],
+                Audience = _config["Jwt:Audience"],
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Claims = new Dictionary<string, object>()
+        {
+            { "jti", Guid.NewGuid().ToString() }
+        }
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);

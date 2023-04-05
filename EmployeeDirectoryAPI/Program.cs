@@ -1,11 +1,9 @@
-using EmployeeDirectoryAPI.Models;
+using EmployeeDirectoryAPI;
+using EmployeeDirectoryAPI.Controllers;
 using EmployeeDirectoryAPI.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EmpContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string not found.")));
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
 //        options => builder.Configuration.Bind("JwtSettings", options));
@@ -26,8 +25,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     var secretKey = builder.Configuration["Jwt:Key"];
+    var issuer = builder.Configuration["Jwt:Issuer"];
+    var audience = builder.Configuration["Jwt:Audience"];
 
-    if (secretKey != null)
+    if (secretKey != null && issuer != null && audience != null)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -35,10 +36,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            ClockSkew = TimeSpan.Zero,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
         };
     }
 });
+
+
 
 
 
@@ -54,6 +60,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<BlacklistMiddleware>();
 
 app.UseAuthentication();
 
