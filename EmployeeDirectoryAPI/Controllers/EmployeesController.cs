@@ -1,11 +1,13 @@
 ﻿using EmployeeDirectoryAPI.Models;
 using EmployeeDirectoryAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeDirectoryAPI.Controllers
 {
-    [Authorize]
+    //[EnableCors("_myAllowSpecificOrigins")]
+    //[Authorize]
     public class EmployeesController : ControllerBase
     {
         IEmployeeService _employeeService;

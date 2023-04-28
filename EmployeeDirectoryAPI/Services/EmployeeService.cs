@@ -1,6 +1,7 @@
 ﻿using EmployeeDirectoryAPI.Models;
 using EmployeeDirectoryAPI.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EmployeeDirectoryAPI.Services
 {
@@ -58,7 +59,11 @@ namespace EmployeeDirectoryAPI.Services
             List<Employee> employee;
 
             try
-            {
+            { 
+                if (searchBy == null)
+                {
+                    searchBy = "firstname";
+                }
                 switch (searchBy.ToLower())
                 {
                     case "department":
@@ -191,16 +196,17 @@ namespace EmployeeDirectoryAPI.Services
 
 
                 // mapper
-                existingEmployee.FirstName = employee.FirstName ?? existingEmployee.FirstName;
-                existingEmployee.LastName = employee.LastName ?? existingEmployee.LastName;
+                existingEmployee.FirstName = string.IsNullOrEmpty(employee.FirstName) ? existingEmployee.FirstName : employee.FirstName;
+                existingEmployee.LastName = string.IsNullOrEmpty(employee.LastName) ? existingEmployee.LastName : employee.LastName;
                 existingEmployee.PreferredName = employee.PreferredName ?? existingEmployee.PreferredName;
-                existingEmployee.Email = employee.Email ?? existingEmployee.Email;
-                existingEmployee.JobTitle = employee.JobTitle ?? existingEmployee.JobTitle;
-                existingEmployee.Office = employee.Office ?? existingEmployee.Office;
-                existingEmployee.Department = employee.Department ?? existingEmployee.Department;
-                existingEmployee.PhoneNumber = employee.PhoneNumber ?? existingEmployee.PhoneNumber;
-                existingEmployee.SkypeID = employee.SkypeID ?? existingEmployee.SkypeID;
-                existingEmployee.ImagePath = employee.ImagePath ?? existingEmployee.ImagePath;
+                existingEmployee.Email = string.IsNullOrEmpty(employee.Email) ? existingEmployee.Email : employee.Email;
+                existingEmployee.JobTitle = string.IsNullOrEmpty(employee.JobTitle) ? existingEmployee.JobTitle : employee.JobTitle;
+                existingEmployee.Office = string.IsNullOrEmpty(employee.Office) ? existingEmployee.Office : employee.Office;
+                existingEmployee.Department = string.IsNullOrEmpty(employee.Department) ? existingEmployee.Department : employee.Department;
+                existingEmployee.PhoneNumber = string.IsNullOrEmpty(employee.PhoneNumber) ? existingEmployee.PhoneNumber : employee.PhoneNumber;
+                existingEmployee.SkypeID = string.IsNullOrEmpty(employee.SkypeID) ? existingEmployee.SkypeID : employee.SkypeID;
+                existingEmployee.ImagePath = string.IsNullOrEmpty(employee.ImagePath) ? existingEmployee.ImagePath : employee.ImagePath;
+
 
 
                 //_context.Update<Employee>(existingEmployee);

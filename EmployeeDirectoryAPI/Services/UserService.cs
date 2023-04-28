@@ -43,6 +43,7 @@ namespace EmployeeDirectoryAPI.Services
         {
             return await _context.Users.AnyAsync(x => x.Email == email);
         }
+
         public async Task<User> Register(LoginDTO login)
         {
             var user = new User { Email = login.email, Password = BCrypt.Net.BCrypt.HashPassword(login.password) };
